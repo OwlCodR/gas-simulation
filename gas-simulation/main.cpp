@@ -25,7 +25,7 @@ int main()
 	//Выключение возможности изменения размера окна
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Window WOW", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(800, 600, "Window", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
