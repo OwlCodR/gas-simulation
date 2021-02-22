@@ -15,9 +15,10 @@
 
 > *If it doesn't work, try to delete **libglfw3.a** and **libglfw3dll.a** from **lib-mingw-w64***
 
-### :bookmark_tabs: GLFW Setup GCC (OS X)
+### :bookmark_tabs: GLFW and GLEW Setup GCC (OS X)
 1. brew install glfw3
-2. compile with "g++ main.cpp -framework OpenGL -lglfw"
+   brew install glew
+2. compile with "g++ main.cpp -framework OpenGL -lglfw -lglew"
 
 ![GitHub](https://img.shields.io/github/license/OwlCodR/gas-simulation) ![GitHub last commit](https://img.shields.io/github/last-commit/OwlCodr/gas-simulation) ![GitHub top language](https://img.shields.io/github/languages/top/OwlCodR/gas-simulation) 
 
