@@ -6,6 +6,7 @@
 
 ## :stars: Dependencies
 - [GLFW](https://www.glfw.org/) 3.3.2
+- [GLEW](http://glew.sourceforge.net/) 2.1.0
 - [OpenGL](https://www.opengl.org/) 3.3
 
 ### :bookmark_tabs: GLFW/GLEW Setup on VSCode (Windows)
