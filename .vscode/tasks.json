@@ -5,17 +5,18 @@
         "type": "shell",
         "label": "C/C++: g++.exe build active file",
         "command": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\g++.exe",
-        "args": ["-g", "${file}", "-o", "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "args": ["-g", "${file}", "-o", "${workspaceFolder}\\debug\\${fileBasenameNoExtension}.exe",
 
           /* Include paths */
           "-I${workspaceFolder}/include",
 
           /* Library paths */
-          "-L${workspaceFolder}/lib-mingw-w64",
+          "-L${workspaceFolder}/lib",
 
           /* Libraries */
           "-lopengl32",
           "-lglfw3",
+          "-lglew32"
         ],
         "options": {
           "cwd": "${workspaceFolder}"
