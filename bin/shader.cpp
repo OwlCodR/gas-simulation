@@ -18,11 +18,11 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
     fShaderFile.open(fragmentPath);
 
     if (!vShaderFile.is_open()) {
-        throw std::runtime_error(std::string("Failed to open file: ") + vertexPath);
+        throw runtime_error(string("Failed to open file: ") + vertexPath);
     }
 
     if (!fShaderFile.is_open()) {
-        throw std::runtime_error(std::string("Failed to open file: ") + fragmentPath);
+        throw runtime_error(string("Failed to open file: ") + fragmentPath);
     }
 
     stringstream vShaderStream, fShaderStream;
@@ -66,10 +66,9 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
     glAttachShader(this->program, fragment);
     glLinkProgram(this->program);
     glGetProgramiv(this->program, GL_LINK_STATUS, &success);
-    if(!success)
-    {
+    if(!success) {
         glGetProgramInfoLog(this->program, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+        cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << endl;
     }
 
     glDeleteShader(vertex);

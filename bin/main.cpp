@@ -12,8 +12,6 @@
 #include "shader.cpp"
 #include "shader.h"
 
-
-
 // Only for Windows:
 #include <Windows.h>
 
@@ -56,11 +54,9 @@ int main()
 
 	glewExperimental = GL_TRUE;
     glewInit();
-
 	
 	const GLchar* vertexShaderPath = "D:/projects/gas-simulation/debug/shaders/shader.vs";
 	const GLchar* fragmentShaderPath = "D:/projects/gas-simulation/debug/shaders/shader.fs";
-
 
 	Shader shader(vertexShaderPath, fragmentShaderPath);
 	
@@ -91,7 +87,6 @@ int main()
 		glBindVertexArray(0);
 	}
 	
-
 	while(!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
@@ -100,7 +95,7 @@ int main()
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glUniform4f(glGetUniformLocation(shader.program, "currentColor"), 0.0f, 0.0f, 1.0f, 1.0f);
+		glUniform4f(glGetUniformLocation(shader.program, "currentColor"), sin(time), 0.0f, 1.0f, 1.0f);
 		shader.use();
 		glBindVertexArray(VAOs[0]);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
