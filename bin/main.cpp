@@ -1,6 +1,6 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
-#define GLFW_DLL
+//#define GLFW_DLL
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -14,6 +14,10 @@
 
 #include "shader.cpp"
 #include "shader.h"
+
+#include "sphere.h"
+#include "sphere.cpp"
+
 
 using namespace std;
 
@@ -59,8 +63,11 @@ void initialize() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
+	glfwWindowHint(GLFW_SAMPLES, 4);
 
-	glEnable(GL_DEPTH_TEST);
+
+	glEnable(GL_DEPTH_TEST | GL_MULTISAMPLE);
+
 }
 
 int main()
@@ -99,6 +106,7 @@ int main()
 	model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glm::mat4 view(1.0f);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
 
 	GLfloat vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -143,6 +151,7 @@ int main()
         -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
+	
 
 	GLuint VBO, VAO;
 	glGenVertexArrays(1, &VAO);
