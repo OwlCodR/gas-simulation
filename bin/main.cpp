@@ -65,7 +65,6 @@ void initialize() {
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
-
 	glEnable(GL_DEPTH_TEST | GL_MULTISAMPLE);
 
 }
@@ -109,61 +108,55 @@ int main()
 
 
 	GLfloat vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+        0,   0.5,   0,
+		0.5,   -2.18557e-08,   0,
+		-2.18557e-08,   -2.18557e-08,   0.5,
+		-0.5,   -2.18557e-08,   -4.37114e-08,
+		5.96244e-09,   -2.18557e-08,   -0.5,
+		-4.37114e-08,   -0.5,   0
+    };
+	
+	GLuint indices[] = {
+        0,   1,   2,
+		0,   2,   3,
+		0,   3,   4,
+		0,   4,   1,
+		5,   4,   3,
+		5,   3,   2,
+		5,   2,   1,
+		5,   1,   4
     };
 	
 
-	GLuint VBO, VAO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
+	//  GLuint VBO, VAO, EBO;
+	//  glGenVertexArrays(1, &VAO);
+	//  glGenBuffers(1, &VBO);
+	//  glGenBuffers(1, &EBO);
 	
-	glBindVertexArray(VAO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO); 
-			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*) 0);
-			glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
+	// glBindVertexArray(VAO);
+	// 	glBindBuffer(GL_ARRAY_BUFFER, VBO); 
+	// 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	// 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*) 0);
+	// 		glEnableVertexAttribArray(0);
+	// 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	// glBindVertexArray(0);
+
+	// glBindVertexArray(VAO);
+    //     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    //         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    //     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
+    //         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    //         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*) 0);
+    //         glEnableVertexAttribArray(0);
+    // glBindVertexArray(0);
+
+	Sphere sphere(1.0f, 30, 40);
+
+	time = glfwGetTime();
+	sphere.create();
+	cout << "Creating time: " << glfwGetTime() - time << endl;
+	
+	sphere.setBuffers();
 	
 	while(!glfwWindowShouldClose(window))
 	{
@@ -183,10 +176,22 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(shader.program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(shader.program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-		glBindVertexArray(VAO);
-			glUniform4f(glGetUniformLocation(shader.program, "currentColor"), sin(time), 0.5f, 1.0f, 1.0f);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);
+		// glBindVertexArray(VAO);
+		// 	glUniform4f(glGetUniformLocation(shader.program, "currentColor"), sin(time), 0.5f, 1.0f, 1.0f);
+		// 	glDrawArrays(GL_LINE_LOOP, 0, 96);
+		// glBindVertexArray(0);
+		
+		// glBindVertexArray(sphere.VAO);
+		// 	glUniform4f(glGetUniformLocation(shader.program, "currentColor"), sin(time), 0.5f, 1.0f, 1.0f);
+		// 	glDrawArrays(GL_LINE_LOOP, 0, 18);
+    	// glBindVertexArray(0);
+
+		// glBindVertexArray(VAO);
+		// 	glUniform4f(glGetUniformLocation(shader.program, "currentColor"), sin(time), 0.5f, 1.0f, 1.0f);
+		// 	glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, 0);
+    	// glBindVertexArray(0);
+
+		sphere.draw(shader, time, Sphere::FILL);
 		
 		glfwSwapBuffers(window);
 	}
