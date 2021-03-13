@@ -21,8 +21,10 @@ public:
     static const int FILL = 1;
 
     vector<GLfloat> vectorVert; 
-    vector<GLuint> indexes; 
-    Sphere(GLfloat radius, GLint countStacks, GLint countSectors);
+    vector<GLuint> indexes;
+    glm::vec3 position;
+    
+    Sphere(glm::vec3 position, GLfloat radius, GLint countStacks, GLint countSectors);
 
     GLfloat getRadius();
     GLint getCountStacks();

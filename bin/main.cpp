@@ -18,7 +18,6 @@
 #include "sphere.h"
 #include "sphere.cpp"
 
-
 using namespace std;
 
 float speed = 0.1f;
@@ -106,62 +105,56 @@ int main()
 	glm::mat4 view(1.0f);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
-
-	GLfloat vertices[] = {
-        0,   0.5,   0,
-		0.5,   -2.18557e-08,   0,
-		-2.18557e-08,   -2.18557e-08,   0.5,
-		-0.5,   -2.18557e-08,   -4.37114e-08,
-		5.96244e-09,   -2.18557e-08,   -0.5,
-		-4.37114e-08,   -0.5,   0
-    };
+	// GLfloat vertices[] = {
+    //     0,   0.5,   0,
+	// 	0.5,   -2.18557e-08,   0,
+	// 	-2.18557e-08,   -2.18557e-08,   0.5,
+	// 	-0.5,   -2.18557e-08,   -4.37114e-08,
+	// 	5.96244e-09,   -2.18557e-08,   -0.5,
+	// 	-4.37114e-08,   -0.5,   0
+    // };
 	
-	GLuint indices[] = {
-        0,   1,   2,
-		0,   2,   3,
-		0,   3,   4,
-		0,   4,   1,
-		5,   4,   3,
-		5,   3,   2,
-		5,   2,   1,
-		5,   1,   4
-    };
-	
+	// GLuint indices[] = {
+    //     0,   1,   2,
+	// 	0,   2,   3,
+	// 	0,   3,   4,
+	// 	0,   4,   1,
+	// 	5,   4,   3,
+	// 	5,   3,   2,
+	// 	5,   2,   1,
+	// 	5,   1,   4
+    // };
 
-	//  GLuint VBO, VAO, EBO;
-	//  glGenVertexArrays(1, &VAO);
-	//  glGenBuffers(1, &VBO);
-	//  glGenBuffers(1, &EBO);
-	
-	// glBindVertexArray(VAO);
-	// 	glBindBuffer(GL_ARRAY_BUFFER, VBO); 
-	// 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	// 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*) 0);
-	// 		glEnableVertexAttribArray(0);
-	// 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	// glBindVertexArray(0);
-
-	// glBindVertexArray(VAO);
-    //     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    //         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    //     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
-    //         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    //         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*) 0);
-    //         glEnableVertexAttribArray(0);
-    // glBindVertexArray(0);
-
-	Sphere sphere(1.0f, 30, 40);
+	Sphere sphere1(glm::vec3(4.0f, 0.0f, 0.0f), 1.0f, 100, 100);
+	Sphere sphere2(glm::vec3(-4.0f, 0.0f, 0.0f), 1.0f, 100, 100);
+	Sphere sphere3(glm::vec3(0.0f, -4.0f, 0.0f), 1.0f, 100, 100);
+	Sphere sphere4(glm::vec3(0.0f, 4.0f, 0.0f), 1.0f, 100, 100);
+	Sphere sphere5(glm::vec3(0.0f, 0.0f, -4.0f), 1.0f, 100, 100);
+	Sphere sphere6(glm::vec3(0.0f, 0.0f, 4.0f), 1.0f, 100, 100);
 
 	time = glfwGetTime();
-	sphere.create();
-	cout << "Creating time: " << glfwGetTime() - time << endl;
+	sphere1.create();
+	sphere2.create();
+	sphere3.create();
+	sphere4.create();
+	sphere5.create();
+	sphere6.create();
+	cout << "\nCreating time: " << glfwGetTime() - time << endl;
+	//cout << sphere1.indexes.size() << endl;
 	
-	sphere.setBuffers();
+	sphere1.setBuffers();
+	sphere2.setBuffers();
+	sphere3.setBuffers();
+	sphere4.setBuffers();
+	sphere5.setBuffers();
+	sphere6.setBuffers();
 	
+	int frames = 0;
+	time = glfwGetTime();
 	while(!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
-		time = glfwGetTime();
+		
 
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -176,24 +169,21 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(shader.program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(shader.program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-		// glBindVertexArray(VAO);
-		// 	glUniform4f(glGetUniformLocation(shader.program, "currentColor"), sin(time), 0.5f, 1.0f, 1.0f);
-		// 	glDrawArrays(GL_LINE_LOOP, 0, 96);
-		// glBindVertexArray(0);
-		
-		// glBindVertexArray(sphere.VAO);
-		// 	glUniform4f(glGetUniformLocation(shader.program, "currentColor"), sin(time), 0.5f, 1.0f, 1.0f);
-		// 	glDrawArrays(GL_LINE_LOOP, 0, 18);
-    	// glBindVertexArray(0);
-
-		// glBindVertexArray(VAO);
-		// 	glUniform4f(glGetUniformLocation(shader.program, "currentColor"), sin(time), 0.5f, 1.0f, 1.0f);
-		// 	glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, 0);
-    	// glBindVertexArray(0);
-
-		sphere.draw(shader, time, Sphere::FILL);
+		sphere1.draw(shader, glfwGetTime(), Sphere::FILL);
+		sphere2.draw(shader, glfwGetTime(), Sphere::FILL);
+		sphere3.draw(shader, glfwGetTime(), Sphere::FILL);
+		sphere4.draw(shader, glfwGetTime(), Sphere::FILL);
+		sphere5.draw(shader, glfwGetTime(), Sphere::FILL);
+		sphere6.draw(shader, glfwGetTime(), Sphere::FILL);
 		
 		glfwSwapBuffers(window);
+		frames++;
+
+		if (glfwGetTime() - time > 1) {
+			cout << "\nfps: " << frames << endl;
+			frames = 0;
+			time = glfwGetTime();
+		}
 	}
 
 	glfwDestroyWindow(window);
