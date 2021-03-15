@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
@@ -15,8 +16,12 @@
 #include "shader.cpp"
 #include "shader.h"
 
-#include "sphere.h"
 #include "sphere.cpp"
+#include "sphere.h"
+
+
+#include "cylinder.h"
+#include "cylinder.cpp"
 
 using namespace std;
 
@@ -63,6 +68,7 @@ void initialize() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 
 	glfwWindowHint(GLFW_SAMPLES, 4);
+	glfwSwapInterval(0);
 
 	glEnable(GL_DEPTH_TEST | GL_MULTISAMPLE);
 
@@ -132,6 +138,8 @@ int main()
 	Sphere sphere5(glm::vec3(0.0f, 0.0f, -4.0f), 1.0f, 100, 100);
 	Sphere sphere6(glm::vec3(0.0f, 0.0f, 4.0f), 1.0f, 100, 100);
 
+	Cylinder square(glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f, 4);
+	
 	time = glfwGetTime();
 	sphere1.create();
 	sphere2.create();
@@ -139,8 +147,10 @@ int main()
 	sphere4.create();
 	sphere5.create();
 	sphere6.create();
+
+	square.create();
+
 	cout << "\nCreating time: " << glfwGetTime() - time << endl;
-	//cout << sphere1.indexes.size() << endl;
 	
 	sphere1.setBuffers();
 	sphere2.setBuffers();
@@ -148,13 +158,26 @@ int main()
 	sphere4.setBuffers();
 	sphere5.setBuffers();
 	sphere6.setBuffers();
+
+	square.setBuffers();
 	
-	int frames = 0;
-	time = glfwGetTime();
+	glm::vec4 color(1.0f);
+	color = glm::vec4(((float) sin(time)), 0.5f, 1.0f, 1.0f);
+
+	double lastTime = glfwGetTime();
+ 	int nbFrames = 0;
+
 	while(!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents(); 
-		// it works
+
+		double currentTime = glfwGetTime();
+		nbFrames++;
+		if ( currentTime - lastTime >= 1.0 ) {
+			//printf("%f ms/frame\n", double(nbFrames));
+			nbFrames = 0;
+			lastTime += 1.0;
+		}
 
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -169,21 +192,17 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(shader.program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(shader.program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-		sphere1.draw(shader, glfwGetTime(), Sphere::FILL);
-		sphere2.draw(shader, glfwGetTime(), Sphere::FILL);
-		sphere3.draw(shader, glfwGetTime(), Sphere::FILL);
-		sphere4.draw(shader, glfwGetTime(), Sphere::FILL);
-		sphere5.draw(shader, glfwGetTime(), Sphere::FILL);
-		sphere6.draw(shader, glfwGetTime(), Sphere::FILL);
+		color.r = sin(glfwGetTime());
+		sphere1.draw(shader, color, GL_TRIANGLES);
+		sphere2.draw(shader, color, GL_TRIANGLES);
+		sphere3.draw(shader, color, GL_TRIANGLES);
+		sphere4.draw(shader, color, GL_TRIANGLES);
+		sphere5.draw(shader, color, GL_TRIANGLES);
+		sphere6.draw(shader, color, GL_TRIANGLES);
+
+		square.draw(shader, color, GL_TRIANGLES);
 		
 		glfwSwapBuffers(window);
-		frames++;
-
-		if (glfwGetTime() - time > 1) {
-			cout << "\nfps: " << frames << endl;
-			frames = 0;
-			time = glfwGetTime();
-		}
 	}
 
 	glfwDestroyWindow(window);

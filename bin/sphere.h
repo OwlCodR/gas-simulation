@@ -17,31 +17,28 @@ using namespace std;
 class Sphere
 {
 public:
-    static const int LINE = 0;
-    static const int FILL = 1;
-
-    vector<GLfloat> vectorVert; 
+    vector<GLfloat> vectorVert;
     vector<GLuint> indexes;
     glm::vec3 position;
     
-    Sphere(glm::vec3 position, GLfloat radius, GLint countStacks, GLint countSectors);
+    Sphere(glm::vec3 position, GLfloat radius, GLuint countStacks, GLuint countSectors);
 
     GLfloat getRadius();
-    GLint getCountStacks();
-    GLint getCountSectors();
+    GLuint getCountStacks();
+    GLuint getCountSectors();
 
     void setRadius(GLfloat radius);
-    void setCountStacks(GLint countStacks);
-    void setCountSectors(GLint countSectors);
+    void setCountStacks(GLuint countStacks);
+    void setCountSectors(GLuint countSectors);
 
     void create();
     void setBuffers();
-    void draw(Shader shader, double time, int mode);
+    void draw(Shader shader, glm::vec4 color, int mode);
 private:
     GLuint EBO, VBO, VAO;
     GLfloat radius;
-    GLint countStacks;
-    GLint countSectors;
+    GLuint countStacks;
+    GLuint countSectors;
 };
 
 #endif

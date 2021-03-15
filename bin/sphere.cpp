@@ -4,11 +4,11 @@ GLfloat Sphere::getRadius() {
     return this->radius;
 }
 
-GLint Sphere::getCountStacks() {
+GLuint Sphere::getCountStacks() {
     return this->countStacks;
 }
 
-GLint Sphere::getCountSectors() { 
+GLuint Sphere::getCountSectors() { 
     return this->countSectors;
 }
 
@@ -16,15 +16,25 @@ void Sphere::setRadius(GLfloat radius) {
     this->radius = radius;
 }
 
-void Sphere::setCountStacks(GLint countStacks) {
+void Sphere::setCountStacks(GLuint countStacks) {
     this->countStacks = countStacks;
 }
 
-void Sphere::setCountSectors(GLint countSectors) {
+void Sphere::setCountSectors(GLuint countSectors) {
     this->countSectors = countSectors;
 }
 
-Sphere::Sphere(glm::vec3 position, GLfloat radius, GLint countStacks, GLint countSectors) {
+/*! @brief Sets the values of object.
+ *
+ *  This function sets the values of object.
+ * 
+ *  @param[in] position The glm::vec3(x, y, z) of position of object. 
+ *  @param[in] radius The GLfloat length of radius.
+ *  @param[in] countStacks The GLint value which means how much horizontal lines will contain the object.
+ *  @param[in] countSectors The GLint value which means how much vertical lines will contain the object.
+ *
+ */
+Sphere::Sphere(glm::vec3 position, GLfloat radius, GLuint countStacks, GLuint countSectors) {
     this->position = position;
     this->setRadius(radius);
     this->setCountStacks(countStacks);
@@ -143,6 +153,13 @@ void Sphere::create() {
     /// DEBUG ///
 }
 
+
+/*! @brief Sets the buffers of sphere.
+ *
+ *  This function sets VBO and EBO buffers into VAO. It insert buffer data also.
+ *
+ *  @ingroup sphere
+ */
 void Sphere::setBuffers() {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -155,17 +172,24 @@ void Sphere::setBuffers() {
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexes.size() * sizeof(GLuint), &indexes[0], GL_STATIC_DRAW);
                 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*) 0);
                 glEnableVertexAttribArray(0);
-            //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);  
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
-void Sphere::draw(Shader shader, double time, int mode) {
+/*! @brief Draws the sphere using VAO and EBO
+ *
+ *  This function uses glDrawElements() to draw array of indexes (EBO)
+ *  with draw-mode and sets the color of sphere
+ *
+ *  @param[in] shader The Shader where is the "currentColor" variable.
+ *  @param[in] color The color of sphere.
+ *  @param[in] mode The mode of drawing. GL_TRIANGLES or GL_LINE_LOOP for example.
+ *
+ *  @ingroup sphere
+ */
+void Sphere::draw(Shader shader, glm::vec4 color, int mode) {
     glBindVertexArray(VAO);
-        glUniform4f(glGetUniformLocation(shader.program, "currentColor"), sin(time), 0.5f, 1.0f, 1.0f);
-        if (mode)
-            glDrawElements(GL_TRIANGLES, indexes.size(), GL_UNSIGNED_INT, 0);
-        else
-            glDrawElements(GL_LINE_LOOP, indexes.size(), GL_UNSIGNED_INT, 0);
+        glUniform4fv(glGetUniformLocation(shader.program, "currentColor"), 1, glm::value_ptr(color));
+        glDrawElements(mode, indexes.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
