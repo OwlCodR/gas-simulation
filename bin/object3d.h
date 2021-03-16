@@ -19,7 +19,7 @@ using namespace std;
 class Object3D {
 private:
     vector<GLfloat> vectorVertices;
-    vector<GLfloat> vectorIndexes;
+    vector<GLuint> vectorIndexes;
     glm::vec3 position;
 public:
     GLuint VAO, VBO, EBO;
@@ -32,7 +32,7 @@ public:
         return this->vectorVertices;
     }
 
-    virtual vector<GLfloat>& getIndexes() {
+    virtual vector<GLuint>& getIndexes() {
         return this->vectorIndexes;
     }
 

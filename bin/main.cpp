@@ -7,6 +7,8 @@
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "SOIL/SOIL.h" 
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -92,6 +94,9 @@ int main()
 		glfwMakeContextCurrent(window);
 	}
 
+	int w, h;
+	unsigned char* image = SOIL_load_image("./textures/stone.jpg", &w, &h, 0, SOIL_LOAD_RGB);
+
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
@@ -138,7 +143,7 @@ int main()
 	Sphere sphere5(glm::vec3(0.0f, 0.0f, -4.0f), 1.0f, 100, 100);
 	Sphere sphere6(glm::vec3(0.0f, 0.0f, 4.0f), 1.0f, 100, 100);
 
-	Cylinder square(glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f, 4);
+	Cylinder square(glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f * glm::sqrt(2), 4);
 	
 	time = glfwGetTime();
 	sphere1.create();
@@ -200,7 +205,12 @@ int main()
 		sphere5.draw(shader, color, GL_TRIANGLES);
 		sphere6.draw(shader, color, GL_TRIANGLES);
 
+		model = glm::mat4(1.0f);
+		//glUniformMatrix4fv(glGetUniformLocation(shader.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+
 		square.draw(shader, color, GL_TRIANGLES);
+
+		
 		
 		glfwSwapBuffers(window);
 	}

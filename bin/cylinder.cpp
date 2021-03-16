@@ -109,8 +109,8 @@ void Cylinder::create() {
                     // Extra triangles
 
                     getIndexes().push_back(getVertices().size() / 3 - 1);
-                    getIndexes().push_back(getCountSectors() + j);
-                    getIndexes().push_back(getCountSectors() * i + j - 2* getCountSectors() + 1);
+                    getIndexes().push_back(getCountSectors() + j + 1);
+                    getIndexes().push_back(getCountSectors() * i + j - 2* getCountSectors() + 2);
                 }
             } else {
 
@@ -130,8 +130,6 @@ void Cylinder::create() {
                     getIndexes().push_back(currentIndex - getCountSectors());
                     getIndexes().push_back(currentIndex - 2 * getCountSectors() + 1);
 
-                    cout << "ADDED" << endl;
-
                     getIndexes().push_back(currentIndex);
                     getIndexes().push_back(currentIndex - getCountSectors() + 1);
                     getIndexes().push_back(currentIndex - 2 * getCountSectors() + 1);
@@ -148,7 +146,7 @@ void Cylinder::create() {
 
     cout << "==\n";
 
-    for (int i(0); i < getVertices().size(); i += 3) {
+    for (int i(0); i < getIndexes().size(); i += 3) {
         cout << getIndexes()[i] << ",   " << getIndexes()[i + 1] << ",   " << getIndexes()[i + 2] << ",   " << endl;
     }
 }
@@ -168,7 +166,7 @@ void Cylinder::setBuffers() {
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferData(GL_ARRAY_BUFFER, getVertices().size() * sizeof(GLfloat), &getVertices()[0], GL_STATIC_DRAW);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, getVertices().size() * sizeof(GLuint), &getVertices()[0], GL_STATIC_DRAW);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, getIndexes().size() * sizeof(GLuint), &getIndexes()[0], GL_STATIC_DRAW);
                 glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*) 0);
                 glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -188,6 +186,6 @@ void Cylinder::setBuffers() {
 void Cylinder::draw(Shader shader, glm::vec4 color, int mode) {
     glBindVertexArray(VAO);
         glUniform4fv(glGetUniformLocation(shader.program, "currentColor"), 1, glm::value_ptr(color));
-        glDrawArrays(mode, 0, getVertices().size());
+        glDrawElements(mode, getIndexes().size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
