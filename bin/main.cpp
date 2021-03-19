@@ -7,23 +7,26 @@
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "SOIL/SOIL.h" 
-
 #include <iostream>
 #include <vector>
 #include <string>
 #include <ctime>
 #include <math.h>
 
-#include "shader.cpp"
 #include "shader.h"
+#include "shader.cpp"
 
-#include "sphere.cpp"
 #include "sphere.h"
-
+#include "sphere.cpp"
 
 #include "cylinder.h"
 #include "cylinder.cpp"
+
+#include "particle.h"
+#include "particle.cpp"
+
+#include "simulation.h"
+#include "simulation.cpp"
 
 using namespace std;
 
@@ -94,9 +97,6 @@ int main()
 		glfwMakeContextCurrent(window);
 	}
 
-	int w, h;
-	unsigned char* image = SOIL_load_image("./textures/stone.jpg", &w, &h, 0, SOIL_LOAD_RGB);
-
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
@@ -136,35 +136,41 @@ int main()
 	// 	5,   1,   4
     // };
 
-	Sphere sphere1(glm::vec3(4.0f, 0.0f, 0.0f), 1.0f, 100, 100);
-	Sphere sphere2(glm::vec3(-4.0f, 0.0f, 0.0f), 1.0f, 100, 100);
-	Sphere sphere3(glm::vec3(0.0f, -4.0f, 0.0f), 1.0f, 100, 100);
-	Sphere sphere4(glm::vec3(0.0f, 4.0f, 0.0f), 1.0f, 100, 100);
-	Sphere sphere5(glm::vec3(0.0f, 0.0f, -4.0f), 1.0f, 100, 100);
-	Sphere sphere6(glm::vec3(0.0f, 0.0f, 4.0f), 1.0f, 100, 100);
+	// Sphere sphere1(glm::vec3(4.0f, 0.0f, 0.0f), 0.5f, 100, 100);
+	// Sphere sphere2(glm::vec3(-4.0f, 0.0f, 0.0f), 1.0f, 100, 100);
+	// Sphere sphere3(glm::vec3(0.0f, -4.0f, 0.0f), 1.0f, 100, 100);
+	// Sphere sphere4(glm::vec3(0.0f, 4.0f, 0.0f), 1.0f, 100, 100);
+	// Sphere sphere5(glm::vec3(0.0f, 0.0f, -4.0f), 1.0f, 100, 100);
+	// Sphere sphere6(glm::vec3(0.0f, 0.0f, 4.0f), 1.0f, 100, 100);
 
-	Cylinder square(glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f * glm::sqrt(2), 4);
+	// Cylinder square(glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f * glm::sqrt(2), 4);
 	
-	time = glfwGetTime();
-	sphere1.create();
-	sphere2.create();
-	sphere3.create();
-	sphere4.create();
-	sphere5.create();
-	sphere6.create();
+	Simulation<Particle> simulation(100000);
 
-	square.create();
+	time = glfwGetTime();
+
+	simulation.create();
+	// sphere1.create();
+	// sphere2.create();
+	// sphere3.create();
+	// sphere4.create();
+	// sphere5.create();
+	// sphere6.create();
+
+	// square.create();
 
 	cout << "\nCreating time: " << glfwGetTime() - time << endl;
-	
-	sphere1.setBuffers();
-	sphere2.setBuffers();
-	sphere3.setBuffers();
-	sphere4.setBuffers();
-	sphere5.setBuffers();
-	sphere6.setBuffers();
 
-	square.setBuffers();
+	simulation.setBuffers();
+	
+	// sphere1.setBuffers();
+	// sphere2.setBuffers();
+	// sphere3.setBuffers();
+	// sphere4.setBuffers();
+	// sphere5.setBuffers();
+	// sphere6.setBuffers();
+
+	// square.setBuffers();
 	
 	glm::vec4 color(1.0f);
 	color = glm::vec4(((float) sin(time)), 0.5f, 1.0f, 1.0f);
@@ -172,14 +178,20 @@ int main()
 	double lastTime = glfwGetTime();
  	int nbFrames = 0;
 
+	//view = glm::rotate(glm::mat4(1.0f), glm::pi<float>(), glm::vec3(0.0f, 0.0f, 1.0f));
+
+	glUniformMatrix4fv(glGetUniformLocation(shader.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(glGetUniformLocation(shader.program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(glGetUniformLocation(shader.program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
 	while(!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents(); 
 
 		double currentTime = glfwGetTime();
 		nbFrames++;
-		if ( currentTime - lastTime >= 1.0 ) {
-			//printf("%f ms/frame\n", double(nbFrames));
+		if (currentTime - lastTime >= 1.0) {
+			printf("%f ms/frame\n", double(nbFrames));
 			nbFrames = 0;
 			lastTime += 1.0;
 		}
@@ -191,27 +203,27 @@ int main()
 		
 		shader.use();
 
-		model = glm::rotate(model, 0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::rotate(model, 0.01f, glm::vec3(0.0f, 0.0f, 1.0f));
 		
 		glUniformMatrix4fv(glGetUniformLocation(shader.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(glGetUniformLocation(shader.program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(shader.program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
 		color.r = sin(glfwGetTime());
-		sphere1.draw(shader, color, GL_TRIANGLES);
-		sphere2.draw(shader, color, GL_TRIANGLES);
-		sphere3.draw(shader, color, GL_TRIANGLES);
-		sphere4.draw(shader, color, GL_TRIANGLES);
-		sphere5.draw(shader, color, GL_TRIANGLES);
-		sphere6.draw(shader, color, GL_TRIANGLES);
+		simulation.moveObjects();
+		simulation.draw(shader, color);
 
-		model = glm::mat4(1.0f);
-		//glUniformMatrix4fv(glGetUniformLocation(shader.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		// sphere1.draw(shader, color, GL_TRIANGLES);
+		// sphere2.draw(shader, color, GL_TRIANGLES);
+		// sphere3.draw(shader, color, GL_TRIANGLES);
+		// sphere4.draw(shader, color, GL_TRIANGLES);
+		// sphere5.draw(shader, color, GL_TRIANGLES);
+		// sphere6.draw(shader, color, GL_TRIANGLES);
 
-		square.draw(shader, color, GL_TRIANGLES);
-
+		// square.draw(shader, color, GL_TRIANGLES);
 		
-		
+		//view = glm::mat4(1.0f);
+
 		glfwSwapBuffers(window);
 	}
 
