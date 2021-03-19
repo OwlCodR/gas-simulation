@@ -9,6 +9,7 @@
 - [GLEW](http://glew.sourceforge.net/) 2.1.0
 - [GLM](http://glm.g-truc.net/0.9.5/index.html) 0.9.5.4
 - [OpenGL](https://www.opengl.org/) 3.3
+- [Assimp](http://assimp.org/index.php) 5.0.1
 
 ### :bookmark_tabs: Libraries Setup on VSCode (Windows)
 1. [Download](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download) and install MinGW to the default directory
@@ -20,7 +21,7 @@
 7. Copy **glm/glm/..** directory to the **include** folder
 
 ### :bookmark_tabs: Libraries Setup on VSCode (Linux)
-1. Execute in terminal ```sudo apt install libglfw3-dev libglew-dev libglm-dev```
+1. Execute in terminal ```sudo apt install libglfw3-dev libglew-dev libglm-dev assimp-utils```
 2. Modify **.vscode/tasks.json**:
 ```json
 {
