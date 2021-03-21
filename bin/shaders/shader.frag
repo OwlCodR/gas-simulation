@@ -1,10 +1,12 @@
 #version 330 core
 
-out vec4 finalColor;	
+in vec3 direction;
 
-uniform vec4 currentColor;
+out vec4 finalColor;	
 
 void main()
 {
-	finalColor = currentColor;
+	float len = length(direction);
+	finalColor = vec4(len / 0.015f, 0.0f, 0.1f, 1.0f);
+	// It doesnt work
 }

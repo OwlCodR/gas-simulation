@@ -22,7 +22,7 @@ template <class T>
 class Simulation {
 public:
     vector<T> objects;
-    vector<GLfloat> vertices;
+    vector<GLfloat> data;
     GLuint VAO, VBO;
     GLuint count;
     GLint MAX_POS = 5.0f;
@@ -31,7 +31,7 @@ public:
     void create();
     void setBuffers();
     void moveObjects();
-    void draw(Shader shader, glm::vec4 color);
+    void draw(Shader shader);
 };
 
 #endif

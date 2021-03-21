@@ -16,11 +16,11 @@ using namespace std;
 
 class Object {
 public:
-    glm::vec2 position;
-    glm::vec2 direction;
+    glm::vec3 position;
+    glm::vec3 direction;
 
     Object(){};
-    Object(glm::vec2 position, glm::vec2 direction);
+    Object(glm::vec3 position, glm::vec3 direction);
 
     virtual void move(GLfloat MAX_POS) = 0;
 };
