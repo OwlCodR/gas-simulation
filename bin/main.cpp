@@ -145,7 +145,7 @@ int main()
 
 	// Cylinder square(glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f * glm::sqrt(2), 4);
 	
-	Simulation<Particle> simulation(10000);
+	Simulation<Particle> simulation(0.2f, 1000);
 
 	time = glfwGetTime();
 
@@ -191,7 +191,8 @@ int main()
 		double currentTime = glfwGetTime();
 		nbFrames++;
 		if (currentTime - lastTime >= 1.0) {
-			// printf("%f ms/frame\n", double(nbFrames));
+			printf("%f ms/frame\n", 1000.0 / double(nbFrames));
+			printf("%f fps\n", double(nbFrames));
 			nbFrames = 0;
 			lastTime += 1.0;
 		}
@@ -211,6 +212,8 @@ int main()
 
 		color.r = sin(glfwGetTime());
 		simulation.moveObjects();
+		simulation.checkCollisions();
+		simulation.setData();
 		simulation.draw(shader);
 
 		// sphere1.draw(shader, color, GL_TRIANGLES);

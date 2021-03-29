@@ -16,7 +16,12 @@
 
 using namespace std;
 
+/*  DO NOT USE  */
+/*  USE Object */
 class Object3D {
+
+    /*  DEPRECATED  */
+
 private:
     vector<GLfloat> vectorVertices;
     vector<GLuint> vectorIndexes;

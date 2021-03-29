@@ -1,20 +1,22 @@
 #include "particle.h"
 
-Particle::Particle(glm::vec3 position, glm::vec3 direction) {
+Particle::Particle(GLfloat mass, GLfloat radius, glm::vec3 position, glm::vec3 speed) {
+    this->mass = mass;
+    this->radius = radius;
     this->position = position;
-    this->direction = direction;
+    this->speed = speed;
 }
 
-void Particle::move(GLfloat MAX_POS) {
+void Particle::move(GLfloat cubeLength) {
     for (int i(0); i < position.length(); i++) {
-        if (position[i] + direction[i] > MAX_POS) {
-            position[i] = MAX_POS;
-            direction[i] = -(direction[i] + position[i] - MAX_POS);
-        } else if (position[i] + direction[i] < -MAX_POS) {
-            position[i] = -MAX_POS;
-            direction[i] = -(MAX_POS + direction[i] + position[i]);
+        if (position[i] + speed[i] > cubeLength) {
+            position[i] = cubeLength;
+            speed[i] = -(speed[i] + position[i] - cubeLength);
+        } else if (position[i] + speed[i] < -cubeLength) {
+            position[i] = -cubeLength;
+            speed[i] = -(cubeLength + speed[i] + position[i]);
         } else {
-            position[i] += direction[i];
+            position[i] += speed[i];
         }
     }
 }

@@ -7,6 +7,6 @@ out vec4 finalColor;
 void main()
 {
 	float len = length(direction);
-	finalColor = vec4(len / 0.015f, 0.0f, 0.1f, 1.0f);
-	// It doesnt work
+	finalColor = vec4(len / 0.015f, 0.0f, 0.015f / len, 1.0f);
+	// It works!
 }

@@ -18,9 +18,8 @@ using namespace std;
 
 class Particle : public Object {
 public:
-    Particle(glm::vec3 position, glm::vec3 direction);
-
-    void move(GLfloat MAX_POS) override;
+    Particle(GLfloat mass, GLfloat radius, glm::vec3 position, glm::vec3 speed);
+    void move(GLfloat cubeLength) override;
 };
 
 #endif

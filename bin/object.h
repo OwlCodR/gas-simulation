@@ -16,13 +16,16 @@ using namespace std;
 
 class Object {
 public:
-    glm::vec3 position;
-    glm::vec3 direction;
+    glm::vec3 position;     // Position of center
+    glm::vec3 speed;
+    GLfloat mass;           // [kg]
+    GLfloat speedScalar;
+    GLfloat radius;         // [m]
 
     Object(){};
-    Object(glm::vec3 position, glm::vec3 direction);
+    Object(GLfloat mass, GLfloat radius, glm::vec3 position, glm::vec3 speed);
 
-    virtual void move(GLfloat MAX_POS) = 0;
+    virtual void move(GLfloat cubeLength) = 0;
 };
 
 #endif

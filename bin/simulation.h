@@ -25,12 +25,14 @@ public:
     vector<GLfloat> data;
     GLuint VAO, VBO;
     GLuint count;
-    GLint MAX_POS = 5.0f;
-    Simulation(GLuint count);
+    GLfloat cubeLength;
+    Simulation(GLfloat cubeLength, GLuint count);
 
     void create();
     void setBuffers();
     void moveObjects();
+    void setData();
+    void checkCollisions();
     void draw(Shader shader);
 };
 
