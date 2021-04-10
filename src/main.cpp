@@ -13,20 +13,16 @@
 #include <ctime>
 #include <math.h>
 
-#include "shader.h"
-#include "shader.cpp"
-
-#include "sphere.h"
-#include "sphere.cpp"
-
-#include "cylinder.h"
-#include "cylinder.cpp"
-
-#include "particle.h"
-#include "particle.cpp"
-
-#include "simulation.h"
-#include "simulation.cpp"
+#include "shaders/shader/shader.h"
+#include "shaders/shader/shader.cpp"
+#include "objects/sphere/sphere.h"
+#include "objects/sphere/sphere.cpp"
+#include "objects/cylinder/cylinder.h"
+#include "objects/cylinder/cylinder.cpp"
+#include "objects/particle/particle.h"
+#include "objects/particle/particle.cpp"
+#include "simulation/simulation.h"
+#include "simulation/simulation.cpp"
 
 using namespace std;
 

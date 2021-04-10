@@ -104,7 +104,7 @@ void Simulation<T>::setData() {
 
 template <class T>
 void Simulation<T>::setBuffers() {
-    T::setBuffers(VAO, VBO, EBO, vertData, indexData);
+    T::setBuffers(VAO, VBO, EBO);
 }
 
 template <class T>

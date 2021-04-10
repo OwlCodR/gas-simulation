@@ -1,7 +1,7 @@
 #ifndef CYLINDER_H
 #define CYLINDER_H
 
-#include "object3d.h"
+#include "../object3d.h"
 
 using namespace std;
 
