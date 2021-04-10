@@ -1,7 +1,6 @@
 # :heavy_check_mark:  Gas Simulation
 ---
 ## :file_folder: **Folders**
-- **.vscode/** contains VSCode launch settings
 - **src/** contains source code
 
 ## :stars: Dependencies
