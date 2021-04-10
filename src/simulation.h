@@ -22,8 +22,9 @@ template <class T>
 class Simulation {
 public:
     vector<T> objects;
-    vector<GLfloat> data;
-    GLuint VAO, VBO;
+    vector<GLfloat> vertData;
+    vector<GLuint> indexData;
+    GLuint VAO, VBO, EBO;
     GLuint count;
     GLfloat cubeLength;
     Simulation(GLfloat cubeLength, GLuint count);
@@ -33,7 +34,7 @@ public:
     void moveObjects();
     void setData();
     void checkCollisions();
-    void draw(Shader shader);
+    void draw(Shader shader, glm::vec4 color);
 };
 
 #endif

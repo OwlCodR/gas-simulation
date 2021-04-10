@@ -2,7 +2,7 @@
 ---
 ## :file_folder: **Folders**
 - **.vscode/** contains VSCode launch settings
-- **bin/** contains source code
+- **src/** contains source code
 
 ## :stars: Dependencies
 - [GLFW](https://www.glfw.org/) 3.3.2

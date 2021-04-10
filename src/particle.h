@@ -20,6 +20,9 @@ class Particle : public Object {
 public:
     Particle(GLfloat mass, GLfloat radius, glm::vec3 position, glm::vec3 speed);
     void move(GLfloat cubeLength) override;
+
+    static void setBuffers(GLuint VAO, GLuint VBO, GLuint EBO);
+    static void draw(GLfloat cubeLength);
 };
 
 #endif
