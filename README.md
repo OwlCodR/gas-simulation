@@ -1,5 +1,6 @@
-# :heavy_check_mark:  Gas Simulation
+# :warning: *DEPRECATED >* [Actual Project](https://github.com/OwlCodR/simulation-of-atmosphere)
 ---
+## :heavy_check_mark:  Gas Simulation
 ## :file_folder: **Folders**
 - **src/** contains source code
 
