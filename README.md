@@ -1,5 +1,3 @@
-# :warning: *DEPRECATED >* [Actual Project](https://github.com/OwlCodR/simulation-of-atmosphere)
----
 ## :heavy_check_mark:  Gas Simulation
 ## :file_folder: **Folders**
 - **src/** contains source code
@@ -81,6 +79,8 @@
 1. ```brew install glfw3```
 2. ```brew install glew```
 3. Compile with ```g++ main.cpp -framework OpenGL -lglfw -lglew```
+
+##### *DEPRECATED >* [Actual Project](https://github.com/OwlCodR/simulation-of-atmosphere)
 
 ![GitHub](https://img.shields.io/github/license/OwlCodR/gas-simulation) ![GitHub last commit](https://img.shields.io/github/last-commit/OwlCodr/gas-simulation) ![GitHub top language](https://img.shields.io/github/languages/top/OwlCodR/gas-simulation) 
 
